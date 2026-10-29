@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐤 POPOI & SIX SEVEN — Juegos 67</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lilita+One&family=Bangers&display=swap');
+
+        :root {
+            --green-6: #2ecc40;
+            --green-6-dark: #1fa832;
+            --red-7: #e74c3c;
+            --red-7-dark: #c0392b;
+            --popoi-yellow: #ffd54f;
+            --popoi-dark: #f9a825;
+            --scarf-gray: #90a4ae;
+            --crocs-green: #4caf50;
+            --bg-cream: #fef9ef;
+            --bg-warm: #fff8e7;
+            --card-bg: #ffffff;
+            --shadow: rgba(0,0,0,0.08);
+            --text-dark: #2d2d2d;
+            --text-muted: #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ====== FLOATING ELEMENTS BG ====== */
+        .bg-floats {
+            position: fixed; inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-floats .float-item {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.08;
+            animation: floatAround linear infinite;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* ====== HEADER ====== */
+        .hero {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 1.5rem 1rem 1rem;
+            background: linear-gradient(180deg, #e8f5e9 0%, var(--bg-cream) 100%);
+            overflow: hidden;
+        }
+
+        .hero-characters {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ====== CSS CHARACTERS ====== */
+        /* --- POPOI (yellow bird) --- */
+        .popoi-char {
+            width: 90px;
+            height: 110px;
+            position: relative;
+            animation: popoiBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes popoiBounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .popoi-body {
+            width: 70px; height: 70px;
+            background: radial-gradient(circle at 35% 35%, #fff9c4, #fff176, var(--popoi-yellow), var(--popoi-dark));
+            border-radius: 50%;
+            position: absolute;
+            bottom: 25px;
+            left: 10px;
+            box-shadow: 0 4px 15px rgba(249,168,37,0.3), inset 0 -3px 8px rgba(0,0,0,0.05);
+        }
+
+        .popoi-body::after {
+            content: '';
+            width: 8px; height: 5px;
+            background: rgba(255,138,101,0.4);
+            border-radius: 50%;
+            position: absolute;
+            top: 40px; left: 6px;
+        }
+
+        .popoi-body::before {
+            content: '';
+            width: 8px; height: 5px;
+            background: rgba(255,138,101,0.4);
+            border-radius: 50%;
+            position: absolute;
+            top: 40px; right: 6px;
+        }
+
+        .popoi-eye {
+            width: 20px; height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 12px;
+            box-shadow: inset 0 0 0 2px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .popoi-eye-l { left: 12px; }
+        .popoi-eye-r { left: 38px; }
+
+        .popoi-pupil {
+            width: 12px; height: 12px;
+            background: radial-gradient(circle at 40% 35%, #5d4037, #3e2723);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 3px; left: 4px;
+            animation: lookAround 4s ease-in-out infinite;
+        }
+
+        .popoi-pupil::after {
+            content: '';
+            width: 3px; height: 3px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px; right: 1px;
+        }
+
+        @keyframes lookAround {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(3px); }
+            75% { transform: translateX(-2px); }
+        }
+
+        .popoi-beak {
+            width: 14px; height: 10px;
+            background: #ff8f00;
+            border-radius: 50%;
+            position: absolute;
+            top: 35px; left: 28px;
+        }
+
+        .popoi-smile {
+            width: 24px; height: 12px;
+            border: 2px solid #e65100;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            position: absolute;
+            top: 37px; left: 23px;
+            background: #ff6f00;
+            overflow: hidden;
+        }
+
+        .popoi-smile::after {
+            content: '';
+            width: 14px; height: 6px;
+            background: #d84315;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -1px; left: 3px;
+        }
+
+        .popoi-hair {
+            position: absolute;
+            top: -6px; left: 22px;
+            width: 0; height: 0;
+        }
+
+        .popoi-hair-strand {
+            width: 5px; height: 16px;
+            background: var(--popoi-yellow);
+            border-radius: 3px 3px 0 0;
+            position: absolute;
+            bottom: 0;
+            transform-origin: bottom center;
+        }
+
+        .popoi-hair-strand:nth-child(1) { left: -4px; transform: rotate(-20deg); background: #ffeb3b; }
+        .popoi-hair-strand:nth-child(2) { left: 2px; transform: rotate(0deg); height: 18px; background: #fdd835; }
+        .popoi-hair-strand:nth-child(3) { left: 8px; transform: rotate(15deg); background: #ffeb3b; }
+
+        .popoi-scarf {
+            width: 60px; height: 16px;
+            background: repeating-linear-gradient(90deg, #78909c 0px, #90a4ae 3px, #b0bec5 6px, #90a4ae 9px, #78909c 12px);
+            border-radius: 8px;
+            position: absolute;
+            bottom: 18px; left: 15px;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .popoi-scarf-tail {
+            width: 12px; height: 26px;
+            background: repeating-linear-gradient(180deg, #78909c 0px, #90a4ae 3px, #b0bec5 6px, #90a4ae 9px);
+            border-radius: 0 0 6px 6px;
+            position: absolute;
+            bottom: 0px; right: 5px;
+            z-index: 1;
+            transform: rotate(12deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .popoi-wing {
+            width: 20px; height: 28px;
+            background: var(--popoi-dark);
+            border-radius: 50% 50% 50% 0;
+            position: absolute;
+            top: 22px;
+        }
+
+        .popoi-wing-l { left: 2px; transform: rotate(-15deg); }
+        .popoi-wing-r { right: 2px; transform: rotate(15deg) scaleX(-1); }
+
+        .popoi-leg {
+            width: 4px; height: 14px;
+            background: #ff8f00;
+            position: absolute;
+            bottom: 8px;
+            border-radius: 2px;
+        }
+
+        .popoi-leg-l { left: 25px; }
+        .popoi-leg-r { left: 41px; }
+
+        .popoi-foot {
+            width: 14px; height: 6px;
+            background: #ff8f00;
+            border-radius: 0 8px 8px 3px;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        .popoi-foot-l { left: 18px; }
+        .popoi-foot-r { left: 38px; }
+
+        /* --- SIX (green 6) --- */
+        .six-char {
+            position: relative;
+            animation: sixWobble 3s ease-in-out infinite;
+        }
+
+        @keyframes sixWobble {
+            0%,100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .six-num {
+            font-family: 'Lilita One', cursive;
+            font-size: 5rem;
+            color: var(--green-6);
+            text-shadow: 3px 3px 0 var(--green-6-dark), 4px 4px 0 rgba(0,0,0,0.1), 0 6px 15px rgba(46,204,64,0.3);
+            position: relative;
+            line-height: 1;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+        }
+
+        .six-eyes {
+            position: absolute;
+            top: 8px; left: 14px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .char-eye {
+            width: 18px; height: 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .char-eye .pupil {
+            width: 9px; height: 9px;
+            background: radial-gradient(circle at 40% 35%, #444, #111);
+            border-radius: 50%;
+            position: relative;
+            animation: lookAround 5s ease-in-out infinite;
+        }
+
+        .char-eye .pupil::after {
+            content: '';
+            width: 3px; height: 3px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 0; right: 0;
+        }
+
+        .six-eyebrow {
+            width: 12px; height: 4px;
+            background: #1b7a26;
+            border-radius: 2px;
+            position: absolute;
+            top: 2px;
+        }
+
+        .six-eyebrow-l { left: 14px; transform: rotate(-10deg); }
+        .six-eyebrow-r { left: 34px; transform: rotate(10deg); }
+
+        .six-arm {
+            width: 8px; height: 25px;
+            background: var(--green-6);
+            border-radius: 4px;
+            position: absolute;
+        }
+
+        .six-arm-l {
+            left: -6px; top: 38px;
+            transform: rotate(20deg);
+            transform-origin: top center;
+            animation: waveArm 2s ease-in-out infinite;
+        }
+
+        .six-arm-r {
+            right: -2px; top: 38px;
+            transform: rotate(-15deg);
+        }
+
+        .six-hand {
+            width: 12px; height: 12px;
+            background: radial-gradient(circle at 40% 40%, #66bb6a, var(--green-6-dark));
+            border-radius: 50%;
+            position: absolute;
+            bottom: -5px; left: -2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        @keyframes waveArm {
+            0%,100% { transform: rotate(20deg); }
+            50% { transform: rotate(40deg); }
+        }
+
+        .six-legs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: -5px;
+        }
+
+        .croc {
+            width: 28px; height: 16px;
+            background: linear-gradient(135deg, #66bb6a, var(--crocs-green));
+            border-radius: 14px 14px 5px 5px;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.3);
+        }
+
+        .croc::before {
+            content: '';
+            width: 3px; height: 3px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 50%;
+            position: absolute;
+            top: 4px; left: 6px;
+            box-shadow: 6px 0 0 rgba(0,0,0,0.15), 12px 0 0 rgba(0,0,0,0.15);
+        }
+
+        .croc::after {
+            content: '';
+            width: 12px; height: 3px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 2px;
+            position: absolute;
+            top: 10px; left: 8px;
+        }
+
+        /* --- SEVEN (red 7) --- */
+        .seven-char {
+            position: relative;
+            animation: sevenBop 2.5s ease-in-out infinite 0.3s;
+        }
+
+        @keyframes sevenBop {
+            0%,100% { transform: translateY(0) rotate(1deg); }
+            50% { transform: translateY(-5px) rotate(-1deg); }
+        }
+
+        .seven-num {
+            font-family: 'Lilita One', cursive;
+            font-size: 5rem;
+            color: var(--red-7);
+            text-shadow: 3px 3px 0 var(--red-7-dark), 4px 4px 0 rgba(0,0,0,0.1), 0 6px 15px rgba(231,76,60,0.3);
+            position: relative;
+            line-height: 1;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+        }
+
+        .seven-eyes {
+            position: absolute;
+            top: 6px; left: 12px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .seven-eyebrow {
+            width: 12px; height: 4px;
+            background: #922;
+            border-radius: 2px;
+            position: absolute;
+            top: 0px;
+        }
+
+        .seven-eyebrow-l { left: 10px; transform: rotate(8deg); }
+        .seven-eyebrow-r { left: 32px; transform: rotate(-5deg); }
+
+        .seven-arm {
+            width: 8px; height: 25px;
+            background: var(--red-7);
+            border-radius: 4px;
+            position: absolute;
+        }
+
+        .seven-arm-l { left: -4px; top: 30px; transform: rotate(15deg); }
+        .seven-arm-r { right: -6px; top: 25px; transform: rotate(-25deg); }
+
+        .seven-legs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: -5px;
+        }
+
+        /* Title */
+        .hero h1 {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(2rem, 7vw, 3.5rem);
+            letter-spacing: 3px;
+            margin-top: 0.3rem;
+        }
+
+        .hero h1 .t-popoi { color: var(--popoi-dark); }
+        .hero h1 .t-six { color: var(--green-6); }
+        .hero h1 .t-seven { color: var(--red-7); }
+        .hero h1 .t-amp { color: #ccc; font-size: 0.7em; }
+
+        .hero .tagline {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ====== TABS ====== */
+        .tabs {
+            position: sticky; top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding: 0.7rem 0.5rem;
+            background: rgba(254,249,239,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid rgba(0,0,0,0.04);
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .tab {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 25px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .tab:hover { border-color: var(--green-6); color: var(--green-6); transform: translateY(-2px); }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--green-6), #66bb6a);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 3px 12px rgba(46,204,64,0.3);
+        }
+
+        /* ====== GAME AREA ====== */
+        .game-area {
+            position: relative; z-index: 5;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+
+        .game-panel { display: none; animation: panelIn 0.4s ease; }
+        .game-panel.active { display: block; }
+
+        @keyframes panelIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 25px var(--shadow), 0 0 0 1px rgba(0,0,0,0.03);
+        }
+
+        .card-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
+        .card-icon { font-size: 2rem; }
+
+        .card-title {
+            font-family: 'Lilita One', cursive;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+        }
+
+        .card-desc { font-size: 0.82rem; color: var(--text-muted); }
+
+        /* Stats */
+        .stats { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+
+        .stat-pill {
+            background: #f5f5f5;
+            border-radius: 30px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-val {
+            font-family: 'Bangers', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+
+        .stat-val.green { color: var(--green-6); }
+        .stat-val.red { color: var(--red-7); }
+        .stat-val.yellow { color: var(--popoi-dark); }
+
+        .stat-lbl { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.92rem;
+            padding: 0.65rem 1.5rem;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+        .btn:active { transform: scale(0.96); }
+
+        .btn-green { background: linear-gradient(135deg, var(--green-6), #66bb6a); color: #fff; box-shadow: 0 3px 12px rgba(46,204,64,0.3); }
+        .btn-red { background: linear-gradient(135deg, var(--red-7), #ef5350); color: #fff; box-shadow: 0 3px 12px rgba(231,76,60,0.3); }
+        .btn-yellow { background: linear-gradient(135deg, var(--popoi-yellow), var(--popoi-dark)); color: #fff; box-shadow: 0 3px 12px rgba(249,168,37,0.3); }
+        .btn-outline { background: transparent; border: 2px solid #ddd; color: var(--text-muted); }
+        .btn-sm { font-size: 0.78rem; padding: 0.4rem 0.9rem; }
+
+        .center { text-align: center; }
+        .mt1 { margin-top: 1rem; }
+
+        /* ====== CANVAS GAMES ====== */
+        canvas.game-canvas {
+            display: block;
+            margin: 0.8rem auto;
+            border-radius: 18px;
+            border: 2px solid #eee;
+            background: #fafafa;
+            max-width: 100%;
+            cursor: pointer;
+        }
+
+        /* ====== GAME 1: POPOI CATCHER ====== */
+        /* (canvas game) */
+
+        .catcher-hud {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .power-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            opacity: 0.4;
+            transition: all 0.3s;
+        }
+
+        .power-indicator.active {
+            opacity: 1;
+            animation: powerPulse 1s ease-in-out infinite;
+        }
+
+        .power-indicator.shield { border-color: #42a5f5; background: #e3f2fd; color: #1565c0; }
+        .power-indicator.magnet { border-color: #ab47bc; background: #f3e5f5; color: #7b1fa2; }
+        .power-indicator.double { border-color: #ff9800; background: #fff3e0; color: #e65100; }
+
+        @keyframes powerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cat-level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.3);
+            transition: all 0.3s;
+        }
+
+        .cat-combo-badge {
+            display: none;
+            align-items: center;
+            gap: 4px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ff9800, #ffc107);
+            color: white;
+            box-shadow: 0 2px 8px rgba(255,152,0,0.3);
+            animation: comboShake 0.3s ease;
+        }
+
+        .cat-combo-badge.show { display: inline-flex; }
+
+        @keyframes comboShake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-3deg) scale(1.1); }
+            75% { transform: rotate(3deg) scale(1.1); }
+        }
+
+        /* ====== GAME 2: SMASH 67 ====== */
+        .smash-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+            max-width: 400px;
+            margin: 0.8rem auto;
+        }
+
+        .hole {
+            aspect-ratio: 1;
+            background: radial-gradient(ellipse, #e8f5e9 30%, #c8e6c9 100%);
+            border-radius: 50%;
+            border: 3px solid #a5d6a7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 2.2rem;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hole::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            box-shadow: inset 0 -8px 12px rgba(0,0,0,0.06);
+            pointer-events: none;
+        }
+
+        .hole.pop-six { border-color: var(--green-6); animation: popIn 0.25s ease; background: radial-gradient(ellipse, #e8f5e9 20%, #a5d6a7); }
+        .hole.pop-seven { border-color: var(--red-7); animation: popIn 0.25s ease; background: radial-gradient(ellipse, #ffebee 20%, #ef9a9a); }
+        .hole.pop-popoi { border-color: var(--popoi-dark); animation: popIn 0.25s ease; background: radial-gradient(ellipse, #fff9c4 20%, #fff176); }
+        .hole.pop-bomb { border-color: #666; animation: popIn 0.25s ease; background: radial-gradient(ellipse, #eee 20%, #bbb); }
+
+        .hole.hit-good { animation: hitGood 0.3s ease; }
+        .hole.hit-bad { animation: hitBad 0.35s ease; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes hitGood {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); box-shadow: 0 0 25px rgba(46,204,64,0.5); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes hitBad {
+            0%,100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        .smash-bar-wrap {
+            width: 100%; max-width: 400px; height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin: 0.6rem auto;
+            overflow: hidden;
+        }
+
+        .smash-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--green-6), var(--popoi-yellow), var(--red-7));
+            transition: width 0.1s;
+        }
+
+        /* ====== GAME 3: MEMORY ====== */
+        .mem-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            max-width: 420px;
+            margin: 0.8rem auto;
+        }
+
+        .mem-card {
+            aspect-ratio: 0.8;
+            perspective: 800px;
+            cursor: pointer;
+        }
+
+        .mem-inner {
+            position: relative;
+            width: 100%; height: 100%;
+            transition: transform 0.45s;
+            transform-style: preserve-3d;
+            border-radius: 14px;
+        }
+
+        .mem-card.flipped .mem-inner { transform: rotateY(180deg); }
+        .mem-card.matched .mem-inner {
+            transform: rotateY(180deg);
+            box-shadow: 0 0 15px rgba(46,204,64,0.4);
+        }
+
+        .mem-front, .mem-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mem-front {
+            background: linear-gradient(135deg, var(--green-6), #81c784);
+            border: 2px solid #a5d6a7;
+            color: white;
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .mem-back {
+            background: white;
+            border: 2px solid #e0e0e0;
+            transform: rotateY(180deg);
+            font-size: 1.8rem;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .mem-back .mem-val {
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+
+        /* ====== GAME 4: QUIZ ====== */
+        .quiz-q {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .quiz-opts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .quiz-opt {
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .quiz-opt:hover { border-color: var(--green-6); transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow); }
+        .quiz-opt.correct { background: #e8f5e9; border-color: var(--green-6); color: var(--green-6-dark); }
+        .quiz-opt.wrong { background: #ffebee; border-color: var(--red-7); color: var(--red-7-dark); animation: hitBad 0.3s ease; }
+
+        .quiz-feedback {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            min-height: 2.5rem;
+            font-weight: 600;
+        }
+
+        .quiz-dots { display: flex; justify-content: center; gap: 0.4rem; margin-bottom: 1rem; }
+        .qdot { width: 10px; height: 10px; border-radius: 50%; background: #e0e0e0; }
+        .qdot.curr { background: var(--popoi-dark); transform: scale(1.2); }
+        .qdot.ok { background: var(--green-6); }
+        .qdot.fail { background: var(--red-7); }
+
+        /* ====== GAME 5: PUZZLE SUM ====== */
+        .sum-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            max-width: 350px;
+            margin: 0.8rem auto;
+        }
+
+        .sum-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #e0e0e0;
+            background: white;
+            color: var(--text-dark);
+            user-select: none;
+        }
+
+        .sum-cell:hover { border-color: var(--green-6); transform: scale(1.06); }
+        .sum-cell.picked { background: var(--green-6); color: white; border-color: var(--green-6-dark); box-shadow: 0 3px 10px rgba(46,204,64,0.3); }
+        .sum-cell.win { background: var(--popoi-yellow); border-color: var(--popoi-dark); animation: hitGood 0.4s; }
+        .sum-cell.lose { background: #ffcdd2; border-color: var(--red-7); animation: hitBad 0.4s; }
+
+        .sum-display {
+            text-align: center;
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            letter-spacing: 1px;
+        }
+
+        .sum-display.over { color: var(--red-7); }
+        .sum-display.exact { color: var(--green-6); animation: hitGood 0.4s; }
+
+        /* ====== GAME 6: POPOI RUNNER ====== */
+        /* (canvas game) */
+
+        /* ====== MODAL ====== */
+        .modal-bg {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-bg.show { opacity: 1; pointer-events: all; }
+
+        .modal {
+            background: white;
+            border-radius: 28px;
+            padding: 2.5rem;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            transform: scale(0.85);
+            transition: transform 0.3s;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .modal-bg.show .modal { transform: scale(1); }
+        .modal-emoji { font-size: 3.5rem; margin-bottom: 0.5rem; }
+        .modal h3 { font-family: 'Lilita One', cursive; font-size: 1.5rem; color: var(--green-6); margin-bottom: 0.5rem; }
+        .modal p { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            z-index: 600;
+            pointer-events: none;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Footer */
+        footer {
+            position: relative; z-index: 5;
+            text-align: center;
+            padding: 2rem;
+            color: #ccc;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 480px) {
+            .smash-grid { grid-template-columns: repeat(3, 1fr); }
+            .sum-grid { grid-template-columns: repeat(4, 1fr); }
+            .quiz-opts { grid-template-columns: 1fr; }
+            .card { padding: 1.2rem; }
+            .hero-characters { gap: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-floats" id="bgFloats"></div>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+    <div class="hero-characters">
+        <!-- SIX CHARACTER -->
+        <div class="six-char">
+            <div class="six-num" style="position:relative">
+                <div class="six-eyebrow-l six-eyebrow"></div>
+                <div class="six-eyebrow-r six-eyebrow"></div>
+                <div class="six-eyes">
+                    <div class="char-eye"><div class="pupil"></div></div>
+                    <div class="char-eye"><div class="pupil"></div></div>
+                </div>
+                <div class="six-arm six-arm-l"><div class="six-hand"></div></div>
+                <div class="six-arm six-arm-r"><div class="six-hand"></div></div>
+                6
+            </div>
+            <div class="six-legs">
+                <div class="croc"></div>
+                <div class="croc"></div>
+            </div>
+        </div>
+
+        <!-- POPOI CHARACTER -->
+        <div class="popoi-char">
+            <div class="popoi-body">
+                <div class="popoi-hair">
+                    <div class="popoi-hair-strand"></div>
+                    <div class="popoi-hair-strand"></div>
+                    <div class="popoi-hair-strand"></div>
+                </div>
+                <div class="popoi-eye popoi-eye-l"><div class="popoi-pupil"></div></div>
+                <div class="popoi-eye popoi-eye-r"><div class="popoi-pupil"></div></div>
+                <div class="popoi-smile"></div>
+                <div class="popoi-wing popoi-wing-l"></div>
+                <div class="popoi-wing popoi-wing-r"></div>
+                <div class="popoi-scarf">
+                    <div class="popoi-scarf-tail"></div>
+                </div>
+            </div>
+            <div class="popoi-leg popoi-leg-l"></div>
+            <div class="popoi-leg popoi-leg-r"></div>
+            <div class="popoi-foot popoi-foot-l"></div>
+            <div class="popoi-foot popoi-foot-r"></div>
+        </div>
+
+        <!-- SEVEN CHARACTER -->
+        <div class="seven-char">
+            <div class="seven-num" style="position:relative">
+                <div class="seven-eyebrow-l seven-eyebrow"></div>
+                <div class="seven-eyebrow-r seven-eyebrow"></div>
+                <div class="seven-eyes">
+                    <div class="char-eye"><div class="pupil"></div></div>
+                    <div class="char-eye"><div class="pupil"></div></div>
+                </div>
+                <div class="seven-arm seven-arm-l"><div class="six-hand" style="background:var(--red-7-dark)"></div></div>
+                <div class="seven-arm seven-arm-r"><div class="six-hand" style="background:var(--red-7-dark)"></div></div>
+                7
+            </div>
+            <div class="seven-legs">
+                <div class="croc"></div>
+                <div class="croc"></div>
+            </div>
+        </div>
+    </div>
+
+    <h1><span class="t-popoi">POPOI</span> <span class="t-amp">&</span> <span class="t-six">SIX</span> <span class="t-seven">SEVEN</span></h1>
+    <p class="tagline">🎮 ¡El universo de juegos del 67! 🎮</p>
+</header>
+
+<!-- ====== TABS ====== -->
+<nav class="tabs" id="tabs">
+    <button class="tab active" data-g="catcher">🐤 Popoi Catcher</button>
+    <button class="tab" data-g="smash">👊 Smash 67</button>
+    <button class="tab" data-g="memory">🧠 Memorama</button>
+    <button class="tab" data-g="quiz">❓ Quiz 67</button>
+    <button class="tab" data-g="sum">➕ Suma 67</button>
+    <button class="tab" data-g="runner">🏃 Runner</button>
+</nav>
+
+<!-- ====== PANELS ====== -->
+<main class="game-area">
+
+    <!-- GAME 1: POPOI CATCHER -->
+    <section class="game-panel active" id="p-catcher">
+        <div class="card">
+            <div class="card-head">
+                <span class="card-icon">🐤</span>
+                <div>
+                    <div class="card-title">POPOI CATCHER</div>
+                    <div class="card-desc">Mueve a Popoi para atrapar las estrellas ⭐ que caen. ¡Consigue 67! Recoge power-ups para ayudarte 🛡️⚡✨</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-pill"><div class="stat-val yellow" id="cat-score">0</div><div class="stat-lbl">⭐</div></div>
+                <div class="stat-pill"><div class="stat-val red" id="cat-lives">3</div><div class="stat-lbl">❤️</div></div>
+                <div class="stat-pill"><div class="stat-val green" id="cat-best">0</div><div class="stat-lbl">Mejor</div></div>
+            </div>
+            <div class="catcher-hud">
+                <div class="cat-level-badge" id="cat-level">🌟 Nivel 1</div>
+                <div class="cat-combo-badge" id="cat-combo">🔥 x0</div>
+                <div class="power-indicator shield" id="pw-shield">🛡️ Escudo</div>
+                <div class="power-indicator magnet" id="pw-magnet">⚡ Imán</div>
+                <div class="power-indicator double" id="pw-double">✨ x2</div>
+            </div>
+            <canvas id="catcherCanvas" class="game-canvas" width="500" height="380"></canvas>
+            <div class="center">
+                <p style="color:var(--text-muted); font-size:0.78rem; margin-bottom:0.5rem;">🖱️ Mueve el mouse / toca para mover a Popoi</p>
+                <button class="btn btn-yellow" id="cat-play-btn" onclick="catcherStart()">🐤 Jugar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME 2: SMASH 67 -->
+    <section class="game-panel" id="p-smash">
+        <div class="card">
+            <div class="card-head">
+                <span class="card-icon">👊</span>
+                <div>
+                    <div class="card-title">SMASH 67</div>
+                    <div class="card-desc">¡Golpea al 6 y al 7 pero NO a Popoi! Llega a 67 puntos</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-pill"><div class="stat-val green" id="sm-score">0</div><div class="stat-lbl">Puntos</div></div>
+                <div class="stat-pill"><div class="stat-val red" id="sm-time">30</div><div class="stat-lbl">⏱️</div></div>
+                <div class="stat-pill"><div class="stat-val yellow" id="sm-combo">0</div><div class="stat-lbl">Combo</div></div>
+            </div>
+            <div class="smash-bar-wrap"><div class="smash-bar-fill" id="sm-bar" style="width:100%"></div></div>
+            <div class="smash-grid" id="sm-grid"></div>
+            <div class="center mt1">
+                <button class="btn btn-green" onclick="smashStart()">👊 Jugar</button>
+                <button class="btn btn-outline btn-sm" onclick="smashReset()" style="margin-left:0.4rem">↻</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME 3: MEMORY -->
+    <section class="game-panel" id="p-memory">
+        <div class="card">
+            <div class="card-head">
+                <span class="card-icon">🧠</span>
+                <div>
+                    <div class="card-title">MEMORAMA 67</div>
+                    <div class="card-desc">Encuentra pares de números que sumen 67. ¡Popoi cree en ti!</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-pill"><div class="stat-val green" id="mem-moves">0</div><div class="stat-lbl">Movimientos</div></div>
+                <div class="stat-pill"><div class="stat-val yellow" id="mem-pairs">0/8</div><div class="stat-lbl">Pares</div></div>
+            </div>
+            <div class="mem-grid" id="mem-grid"></div>
+            <div class="center mt1"><button class="btn btn-green" onclick="memInit()">🔄 Nuevo</button></div>
+        </div>
+    </section>
+
+    <!-- GAME 4: QUIZ -->
+    <section class="game-panel" id="p-quiz">
+        <div class="card">
+            <div class="card-head">
+                <span class="card-icon">❓</span>
+                <div>
+                    <div class="card-title">QUIZ DEL 67</div>
+                    <div class="card-desc">¿Cuánto sabes sobre el número favorito de Popoi?</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-pill"><div class="stat-val green" id="qz-score">0</div><div class="stat-lbl">✅</div></div>
+                <div class="stat-pill"><div class="stat-val yellow" id="qz-total">0/10</div><div class="stat-lbl">Progreso</div></div>
+            </div>
+            <div class="quiz-dots" id="qz-dots"></div>
+            <div class="quiz-q" id="qz-q"></div>
+            <div class="quiz-opts" id="qz-opts"></div>
+            <div class="quiz-feedback" id="qz-fb"></div>
+            <div class="center mt1">
+                <button class="btn btn-green" id="qz-next" style="display:none" onclick="qzNext()">Siguiente ➡️</button>
+                <button class="btn btn-yellow" id="qz-restart" style="display:none" onclick="qzInit()">🔄 Reiniciar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME 5: SUMA 67 -->
+    <section class="game-panel" id="p-sum">
+        <div class="card">
+            <div class="card-head">
+                <span class="card-icon">➕</span>
+                <div>
+                    <div class="card-title">SUMA 67</div>
+                    <div class="card-desc">Selecciona números que sumen exactamente 67</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-pill"><div class="stat-val green" id="s67-wins">0</div><div class="stat-lbl">Victorias</div></div>
+                <div class="stat-pill"><div class="stat-val yellow" id="s67-streak">0</div><div class="stat-lbl">Racha 🔥</div></div>
+            </div>
+            <div class="sum-display" id="s67-total">0 / 67</div>
+            <div class="sum-grid" id="s67-grid"></div>
+            <div class="center mt1">
+                <button class="btn btn-green" onclick="s67Check()">✅ Verificar</button>
+                <button class="btn btn-outline btn-sm" onclick="s67Init()" style="margin-left:0.4rem">🔄 Nueva</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME 6: RUNNER -->
+    <section class="game-panel" id="p-runner">
+        <div class="card">
+            <div class="card-head">
+                <span class="card-icon">🏃</span>
+                <div>
+                    <div class="card-title">POPOI RUNNER</div>
+                    <div class="card-desc">¡Salta obstáculos y recoge 67 estrellas con Popoi!</div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-pill"><div class="stat-val yellow" id="rn-stars">0</div><div class="stat-lbl">⭐/67</div></div>
+                <div class="stat-pill"><div class="stat-val green" id="rn-dist">0</div><div class="stat-lbl">Metros</div></div>
+                <div class="stat-pill"><div class="stat-val red" id="rn-best">0</div><div class="stat-lbl">Mejor ⭐</div></div>
+            </div>
+            <canvas id="runnerCanvas" class="game-canvas" width="600" height="240"></canvas>
+            <div class="center">
+                <p style="color:var(--text-muted); font-size:0.78rem; margin-bottom:0.5rem;">Clic / Espacio / Toca = Saltar</p>
+                <button class="btn btn-red" onclick="rnStart()">🏃 Correr</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ====== MODAL ====== -->
+<div class="modal-bg" id="modal">
+    <div class="modal">
+        <div class="modal-emoji" id="m-emoji">🎉</div>
+        <h3 id="m-title">¡Genial!</h3>
+        <p id="m-text">Lo lograste</p>
+        <button class="btn btn-green" onclick="closeModal()">Continuar 🚀</button>
+    </div>
+</div>
+
+<footer>🐤 Popoi & Six Seven — El Universo del 67 — Hecho con ❤️</footer>
+
+<script>
+// ============ BG FLOATS ============
+(function(){
+    const el = document.getElementById('bgFloats');
+    const items = ['6️⃣','7️⃣','⭐','🐤','🟢','🔴','✨','67'];
+    for(let i=0;i<25;i++){
+        const s = document.createElement('span');
+        s.className = 'float-item';
+        s.textContent = items[i%items.length];
+        s.style.left = Math.random()*100+'%';
+        s.style.fontSize = (1+Math.random()*2)+'rem';
+        s.style.animationDuration = (12+Math.random()*15)+'s';
+        s.style.animationDelay = (Math.random()*12)+'s';
+        el.appendChild(s);
+    }
+})();
+
+// ============ TABS ============
+document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click',()=>{
+        document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.game-panel').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        document.getElementById('p-'+t.dataset.g).classList.add('active');
+    });
+});
+
+// ============ AUDIO ============
+const AC = new (window.AudioContext||window.webkitAudioContext)();
+function beep(f=440,d=0.08,v=0.1){
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.connect(g);g.connect(AC.destination);
+    o.frequency.value=f;o.type='sine';g.gain.value=v;
+    o.start();g.gain.exponentialRampToValueAtTime(0.001,AC.currentTime+d);
+    o.stop(AC.currentTime+d);
+}
+function sfxHit(){beep(700,0.06)}
+function sfxGood(){beep(523,0.08);setTimeout(()=>beep(659,0.08),80);setTimeout(()=>beep(784,0.1),160);}
+function sfxBad(){beep(200,0.2,0.12)}
+function sfxWin(){[0,80,160,240,320].forEach((d,i)=>setTimeout(()=>beep(523+i*80,0.12),d));}
+
+// ============ MODAL + CONFETTI ============
+function showModal(emoji,title,text){
+    document.getElementById('m-emoji').textContent=emoji;
+    document.getElementById('m-title').textContent=title;
+    document.getElementById('m-text').textContent=text;
+    document.getElementById('modal').classList.add('show');
+    launchConfetti();sfxWin();
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+
+function launchConfetti(){
+    const colors=['#2ecc40','#e74c3c','#ffd54f','#f9a825','#4caf50','#ef5350','#fff176'];
+    for(let i=0;i<55;i++){
+        const c=document.createElement('div');
+        c.className='confetti';
+        c.style.left=Math.random()*100+'vw';
+        c.style.top='-10px';
+        c.style.width=(Math.random()*8+4)+'px';
+        c.style.height=(Math.random()*8+4)+'px';
+        c.style.background=colors[Math.floor(Math.random()*colors.length)];
+        c.style.borderRadius=Math.random()>0.5?'50%':'2px';
+        c.style.animationDuration=(1.5+Math.random()*2)+'s';
+        c.style.animationDelay=(Math.random()*0.5)+'s';
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),4000);
+    }
+}
+
+// ============================================================
+// GAME 1: POPOI CATCHER (ENHANCED)
+// ============================================================
+const catC=document.getElementById('catcherCanvas'), catX=catC.getContext('2d');
+let catPlayer={x:220,y:330,w:50,h:40,targetX:220};
+let catItems=[], catScore=0, catLives=3, catBest=0, catRunning=false, catAnim;
+let catParticles=[], catShakeTimer=0, catFlashTimer=0;
+let catCombo=0, catComboTimer=0, catLastCatchTime=0;
+let catLevel=1, catLevelProgress=0;
+let catPowers={shield:0, magnet:0, double:0}; // Timer in frames
+let catTrail=[];
+
+// Level thresholds
+const catLevels=[
+    {stars:0, name:'Nivel 1', spawnRate:0.025, speedBase:1.3, speedVar:1.5, bombChance:0.12, powerChance:0.06},
+    {stars:10, name:'Nivel 2', spawnRate:0.032, speedBase:1.6, speedVar:1.8, bombChance:0.14, powerChance:0.07},
+    {stars:20, name:'Nivel 3', spawnRate:0.038, speedBase:1.9, speedVar:2.0, bombChance:0.16, powerChance:0.07},
+    {stars:35, name:'Nivel 4', spawnRate:0.044, speedBase:2.2, speedVar:2.2, bombChance:0.18, powerChance:0.08},
+    {stars:50, name:'Nivel 5', spawnRate:0.05, speedBase:2.5, speedVar:2.5, bombChance:0.20, powerChance:0.08},
+    {stars:60, name:'FINAL', spawnRate:0.055, speedBase:2.8, speedVar:2.8, bombChance:0.22, powerChance:0.09},
+];
+
+function getCatLevel(){
+    let lv=catLevels[0];
+    for(const l of catLevels){if(catScore>=l.stars) lv=l;}
+    return lv;
+}
+
+function drawPopoiSmall(ctx,x,y,w,hasShield=false){
+    // Glow when shielded
+    if(hasShield){
+        ctx.save();
+        ctx.shadowColor='#42a5f5';
+        ctx.shadowBlur=18;
+        ctx.globalAlpha=0.6+Math.sin(Date.now()*0.008)*0.2;
+        ctx.fillStyle='#42a5f5';
+        ctx.beginPath();ctx.ellipse(x+w/2,y+w*0.45,w/2+6,w*0.45+6,0,0,Math.PI*2);ctx.fill();
+        ctx.restore();
+    }
+    // Body
+    ctx.fillStyle='#ffd54f';
+    ctx.beginPath();ctx.ellipse(x+w/2,y+w*0.45,w/2,w*0.45,0,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#f9a825';ctx.lineWidth=1.5;ctx.stroke();
+    // Eyes
+    ctx.fillStyle='#fff';
+    ctx.beginPath();ctx.arc(x+w*0.35,y+w*0.3,w*0.12,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x+w*0.65,y+w*0.3,w*0.12,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#3e2723';
+    ctx.beginPath();ctx.arc(x+w*0.37,y+w*0.32,w*0.06,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x+w*0.67,y+w*0.32,w*0.06,0,Math.PI*2);ctx.fill();
+    // Cute highlights
+    ctx.fillStyle='rgba(255,255,255,0.7)';
+    ctx.beginPath();ctx.arc(x+w*0.35,y+w*0.27,w*0.03,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x+w*0.63,y+w*0.27,w*0.03,0,Math.PI*2);ctx.fill();
+    // Blush
+    ctx.fillStyle='rgba(255,138,101,0.3)';
+    ctx.beginPath();ctx.arc(x+w*0.2,y+w*0.45,w*0.07,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x+w*0.8,y+w*0.45,w*0.07,0,Math.PI*2);ctx.fill();
+    // Beak
+    ctx.fillStyle='#ff8f00';
+    ctx.beginPath();ctx.arc(x+w*0.5,y+w*0.52,w*0.08,0,Math.PI*2);ctx.fill();
+    // Scarf
+    ctx.fillStyle='#90a4ae';
+    ctx.fillRect(x+w*0.15,y+w*0.7,w*0.7,w*0.12);
+    ctx.fillRect(x+w*0.6,y+w*0.7,w*0.1,w*0.22);
+    // Hair/Crest
+    ctx.fillStyle='#ffeb3b';
+    ctx.beginPath();
+    ctx.moveTo(x+w*0.4,y-w*0.02);ctx.lineTo(x+w*0.45,y-w*0.18);ctx.lineTo(x+w*0.5,y-w*0.05);
+    ctx.lineTo(x+w*0.55,y-w*0.22);ctx.lineTo(x+w*0.6,y-w*0.02);
+    ctx.fill();
+    // Shield bubble
+    if(hasShield){
+        ctx.save();
+        ctx.strokeStyle='rgba(66,165,245,0.5)';
+        ctx.lineWidth=2;
+        ctx.setLineDash([4,4]);
+        ctx.beginPath();ctx.ellipse(x+w/2,y+w*0.45,w/2+5,w*0.45+5,0,0,Math.PI*2);ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+    }
+    // Magnet aura
+    if(catPowers.magnet>0){
+        ctx.save();
+        ctx.globalAlpha=0.12+Math.sin(Date.now()*0.005)*0.08;
+        ctx.fillStyle='#ab47bc';
+        ctx.beginPath();ctx.arc(x+w/2,y+w*0.45,w*1.5,0,Math.PI*2);ctx.fill();
+        ctx.restore();
+    }
+}
+
+// Particle system
+function addParticles(x,y,color,count=6,speed=2){
+    for(let i=0;i<count;i++){
+        const angle=Math.random()*Math.PI*2;
+        catParticles.push({
+            x, y,
+            vx: Math.cos(angle)*speed*(0.5+Math.random()),
+            vy: Math.sin(angle)*speed*(0.5+Math.random())-1,
+            life: 1,
+            decay: 0.02+Math.random()*0.02,
+            size: 2+Math.random()*4,
+            color,
+            shape: Math.random()>0.5?'circle':'square'
+        });
+    }
+}
+
+function addStarBurst(x,y){
+    addParticles(x,y,'#ffd54f',8,3);
+    addParticles(x,y,'#fff176',4,2);
+    addParticles(x,y,'#ffffff',3,1.5);
+}
+
+function addBombBurst(x,y){
+    addParticles(x,y,'#e74c3c',10,3.5);
+    addParticles(x,y,'#ff6b6b',6,2.5);
+    addParticles(x,y,'#333',4,2);
+}
+
+function addPowerBurst(x,y,color){
+    addParticles(x,y,color,12,3);
+    addParticles(x,y,'#fff',5,2);
+}
+
+function drawParticles(ctx){
+    catParticles.forEach(p=>{
+        ctx.save();
+        ctx.globalAlpha=p.life;
+        ctx.fillStyle=p.color;
+        if(p.shape==='circle'){
+            ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fill();
+        } else {
+            const s=p.size*p.life;
+            ctx.translate(p.x,p.y);ctx.rotate(p.life*3);
+            ctx.fillRect(-s/2,-s/2,s,s);
+        }
+        ctx.restore();
+        p.x+=p.vx; p.y+=p.vy; p.vy+=0.08;
+        p.life-=p.decay;
+    });
+    catParticles=catParticles.filter(p=>p.life>0);
+}
+
+// Floating text ("+1!", "COMBO!" etc)
+let catFloatingTexts=[];
+function addFloatingText(x,y,text,color='#ffd54f',size=16){
+    catFloatingTexts.push({x,y,text,color,size,life:1,vy:-1.5});
+}
+function drawFloatingTexts(ctx){
+    catFloatingTexts.forEach(t=>{
+        ctx.save();
+        ctx.globalAlpha=t.life;
+        ctx.fillStyle=t.color;
+        ctx.font=`bold ${t.size}px Fredoka`;
+        ctx.textAlign='center';
+        ctx.strokeStyle='rgba(0,0,0,0.3)';
+        ctx.lineWidth=3;
+        ctx.strokeText(t.text,t.x,t.y);
+        ctx.fillText(t.text,t.x,t.y);
+        ctx.restore();
+        t.y+=t.vy;
+        t.life-=0.02;
+    });
+    catFloatingTexts=catFloatingTexts.filter(t=>t.life>0);
+}
+
+function catSpawn(){
+    const lv=getCatLevel();
+    const type = Math.random();
+    let item;
+    if(type<lv.bombChance){
+        item={x:Math.random()*(catC.width-30)+15, y:-20, type:'bomb', emoji:'💣', speed:lv.speedBase+Math.random()*lv.speedVar*0.7, r:14, angle:0, wave:Math.random()*0.05};
+    } else if(type<lv.bombChance+lv.powerChance){
+        // Power-up!
+        const powers=['shield','magnet','double','heart'];
+        const emojis={shield:'🛡️',magnet:'⚡',double:'✨',heart:'❤️'};
+        const ptype=powers[Math.floor(Math.random()*powers.length)];
+        item={x:Math.random()*(catC.width-30)+15, y:-20, type:'power', ptype, emoji:emojis[ptype], speed:lv.speedBase*0.7+Math.random()*1, r:14, angle:0, wave:0.03+Math.random()*0.02, glow:true};
+    } else {
+        item={x:Math.random()*(catC.width-30)+15, y:-20, type:'star', emoji:'⭐', speed:lv.speedBase+Math.random()*lv.speedVar, r:12, angle:0, wave:Math.random()*0.03};
+    }
+    catItems.push(item);
+}
+
+function updatePowerHUD(){
+    const sh=document.getElementById('pw-shield');
+    const mg=document.getElementById('pw-magnet');
+    const db=document.getElementById('pw-double');
+    sh.classList.toggle('active',catPowers.shield>0);
+    mg.classList.toggle('active',catPowers.magnet>0);
+    db.classList.toggle('active',catPowers.double>0);
+}
+
+function updateComboHUD(){
+    const el=document.getElementById('cat-combo');
+    if(catCombo>=3){
+        el.classList.add('show');
+        el.textContent='🔥 x'+catCombo;
+    } else {
+        el.classList.remove('show');
+    }
+}
+
+function updateLevelHUD(){
+    const lv=getCatLevel();
+    const el=document.getElementById('cat-level');
+    el.textContent='🌟 '+lv.name;
+}
+
+function catcherStart(){
+    catScore=0;catLives=3;catItems=[];catRunning=true;
+    catParticles=[];catFloatingTexts=[];catTrail=[];
+    catCombo=0;catComboTimer=0;catShakeTimer=0;catFlashTimer=0;
+    catPowers={shield:0,magnet:0,double:0};
+    catLevel=1;
+    document.getElementById('cat-score').textContent=0;
+    document.getElementById('cat-lives').textContent=3;
+    document.getElementById('cat-play-btn').textContent='🐤 Jugando...';
+    document.getElementById('cat-play-btn').disabled=true;
+    updatePowerHUD();updateComboHUD();updateLevelHUD();
+    catLoop();
+}
+
+function catEndGame(){
+    catRunning=false;
+    document.getElementById('cat-play-btn').textContent='🐤 Jugar de nuevo';
+    document.getElementById('cat-play-btn').disabled=false;
+    if(catScore>catBest){catBest=catScore;document.getElementById('cat-best').textContent=catBest;}
+}
+
+function catLoop(){
+    if(!catRunning)return;
+    const lv=getCatLevel();
+
+    catX.clearRect(0,0,catC.width,catC.height);
+
+    // Shake effect
+    catX.save();
+    if(catShakeTimer>0){
+        catX.translate(Math.random()*catShakeTimer*2-catShakeTimer, Math.random()*catShakeTimer*2-catShakeTimer);
+        catShakeTimer-=0.5;
+    }
+
+    // BG - dynamic based on level
+    const bgGrad=catX.createLinearGradient(0,0,0,catC.height);
+    if(catScore>=50){bgGrad.addColorStop(0,'#e8eaf6');bgGrad.addColorStop(1,'#c5cae9');}
+    else if(catScore>=35){bgGrad.addColorStop(0,'#fce4ec');bgGrad.addColorStop(1,'#f8bbd0');}
+    else if(catScore>=20){bgGrad.addColorStop(0,'#fff3e0');bgGrad.addColorStop(1,'#ffe0b2');}
+    else {bgGrad.addColorStop(0,'#e8f5e9');bgGrad.addColorStop(1,'#c8e6c9');}
+    catX.fillStyle=bgGrad;
+    catX.fillRect(0,0,catC.width,catC.height);
+
+    // Decorative bg dots
+    catX.fillStyle='rgba(0,0,0,0.02)';
+    for(let dx=0;dx<catC.width;dx+=20){
+        for(let dy=0;dy<catC.height;dy+=20){
+            catX.beginPath();catX.arc(dx+Math.sin(Date.now()*0.001+dx)*2,dy,1.5,0,Math.PI*2);catX.fill();
+        }
+    }
+
+    // Ground
+    const groundY=catC.height-30;
+    catX.fillStyle=catScore>=50?'#9fa8da':catScore>=35?'#f48fb1':catScore>=20?'#ffcc80':'#a5d6a7';
+    catX.fillRect(0,groundY,catC.width,30);
+    // Grass blades
+    catX.fillStyle=catScore>=50?'#7986cb':catScore>=35?'#f06292':catScore>=20?'#ffb74d':'#81c784';
+    for(let gx=0;gx<catC.width;gx+=12){
+        catX.beginPath();catX.moveTo(gx,groundY);catX.lineTo(gx+3,groundY-6-Math.sin(Date.now()*0.003+gx)*2);catX.lineTo(gx+6,groundY);catX.fill();
+    }
+
+    // Spawn items
+    if(Math.random()<lv.spawnRate) catSpawn();
+
+    // Smooth player movement
+    catPlayer.x+=(catPlayer.targetX-catPlayer.x)*0.18;
+
+    // Trail
+    catTrail.push({x:catPlayer.x+catPlayer.w/2, y:catPlayer.y+catPlayer.h/2, life:1});
+    if(catTrail.length>12) catTrail.shift();
+    catTrail.forEach((t,i)=>{
+        t.life-=0.08;
+        catX.save();
+        catX.globalAlpha=t.life*0.15;
+        catX.fillStyle='#ffd54f';
+        catX.beginPath();catX.arc(t.x,t.y,catPlayer.w*0.3*t.life,0,Math.PI*2);catX.fill();
+        catX.restore();
+    });
+    catTrail=catTrail.filter(t=>t.life>0);
+
+    // Combo timer
+    if(catCombo>0){
+        catComboTimer--;
+        if(catComboTimer<=0){catCombo=0;updateComboHUD();}
+    }
+
+    // Power-up timers
+    if(catPowers.shield>0) catPowers.shield--;
+    if(catPowers.magnet>0) catPowers.magnet--;
+    if(catPowers.double>0) catPowers.double--;
+    updatePowerHUD();
+
+    // Draw & move items
+    catItems.forEach(it=>{
+        it.y+=it.speed;
+        it.angle+=0.03;
+        // Wave movement for some items
+        if(it.wave) it.x+=Math.sin(it.y*it.wave)*1.2;
+
+        // Magnet: attract stars toward player
+        if(catPowers.magnet>0 && it.type==='star'){
+            const dx=catPlayer.x+catPlayer.w/2-it.x;
+            const dy=catPlayer.y-it.y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<120){
+                it.x+=dx*0.06;
+                it.y+=dy*0.03;
+            }
+        }
+
+        // Draw items with effects
+        catX.save();
+        catX.translate(it.x, it.y);
+
+        if(it.glow){ // Power-ups glow
+            catX.shadowColor=it.ptype==='shield'?'#42a5f5':it.ptype==='magnet'?'#ab47bc':it.ptype==='double'?'#ff9800':'#e74c3c';
+            catX.shadowBlur=10+Math.sin(Date.now()*0.008)*5;
+        }
+
+        if(it.type==='star'){
+            catX.rotate(Math.sin(it.angle)*0.15);
+            const starScale=1+Math.sin(Date.now()*0.005+it.x)*0.08;
+            catX.scale(starScale,starScale);
+        }
+
+        catX.font='20px serif';
+        catX.textAlign='center';
+        catX.textBaseline='middle';
+        catX.fillText(it.emoji, 0, 0);
+        catX.restore();
+
+        // Collision with player
+        const px=catPlayer.x+catPlayer.w/2;
+        const py=catPlayer.y+catPlayer.h/2;
+        const hitDist=Math.sqrt((it.x-px)**2+(it.y-py)**2);
+
+        if(hitDist<(it.type==='star'?30:it.type==='power'?28:25)){
+            if(it.type==='star'){
+                const pts=catPowers.double>0?2:1;
+                catScore+=pts;
+                catCombo++;
+                catComboTimer=90; // ~1.5 seconds
+                document.getElementById('cat-score').textContent=catScore;
+                sfxHit();
+                addStarBurst(it.x,it.y);
+                addFloatingText(it.x,it.y-10,'+'+ pts, '#ffd54f', 18);
+                if(catCombo>=3 && catCombo%3===0){
+                    addFloatingText(px,py-30,'COMBO x'+catCombo+'!','#ff9800',20);
+                    beep(800+catCombo*30,0.08,0.08);
+                }
+                if(catCombo>=5){
+                    addFloatingText(px,py-50,'🔥 FUEGO!','#ff5722',22);
+                }
+                updateComboHUD();
+                updateLevelHUD();
+                it.y=9999;
+                if(catScore>=67){
+                    catEndGame();
+                    showModal('🐤','¡POPOI GANÓ!','¡Atrapaste 67 estrellas! ¡Eres increíble! 🌟');
+                }
+            } else if(it.type==='power'){
+                sfxGood();
+                const pcolors={shield:'#42a5f5',magnet:'#ab47bc',double:'#ff9800',heart:'#e74c3c'};
+                addPowerBurst(it.x,it.y,pcolors[it.ptype]);
+                if(it.ptype==='shield'){
+                    catPowers.shield=300; // ~5 seconds
+                    addFloatingText(it.x,it.y-10,'🛡️ ESCUDO!','#42a5f5',18);
+                } else if(it.ptype==='magnet'){
+                    catPowers.magnet=360; // ~6 seconds
+                    addFloatingText(it.x,it.y-10,'⚡ IMÁN!','#ab47bc',18);
+                } else if(it.ptype==='double'){
+                    catPowers.double=300; // ~5 seconds
+                    addFloatingText(it.x,it.y-10,'✨ DOBLE!','#ff9800',18);
+                } else if(it.ptype==='heart'){
+                    catLives=Math.min(catLives+1,5);
+                    document.getElementById('cat-lives').textContent=catLives;
+                    addFloatingText(it.x,it.y-10,'❤️ +1 VIDA!','#e74c3c',18);
+                }
+                updatePowerHUD();
+                it.y=9999;
+            } else if(it.type==='bomb'){
+                if(catPowers.shield>0){
+                    // Shield blocks bomb
+                    catPowers.shield=0;
+                    sfxHit();
+                    addParticles(it.x,it.y,'#42a5f5',8,3);
+                    addFloatingText(it.x,it.y-10,'🛡️ BLOQUEADO!','#42a5f5',16);
+                    updatePowerHUD();
+                } else {
+                    catLives--;
+                    catCombo=0;
+                    updateComboHUD();
+                    document.getElementById('cat-lives').textContent=catLives;
+                    sfxBad();
+                    addBombBurst(it.x,it.y);
+                    addFloatingText(it.x,it.y-10,'💥 -1','#e74c3c',20);
+                    catShakeTimer=6;
+                    catFlashTimer=10;
+                    if(catLives<=0){
+                        catEndGame();
+                        showModal('💥','¡Boom!','Popoi atrapó '+catScore+'/67 estrellas. ¡Inténtalo de nuevo!');
+                    }
+                }
+                it.y=9999;
+            }
+        }
+    });
+    catItems=catItems.filter(it=>it.y<catC.height+20);
+
+    // Draw player (Popoi)
+    drawPopoiSmall(catX, catPlayer.x, catPlayer.y, catPlayer.w, catPowers.shield>0);
+
+    // Particles
+    drawParticles(catX);
+    drawFloatingTexts(catX);
+
+    // Flash effect when hit
+    if(catFlashTimer>0){
+        catX.save();
+        catX.globalAlpha=catFlashTimer*0.04;
+        catX.fillStyle='#e74c3c';
+        catX.fillRect(0,0,catC.width,catC.height);
+        catX.restore();
+        catFlashTimer--;
+    }
+
+    // HUD on canvas
+    catX.fillStyle='rgba(0,0,0,0.5)';
+    catX.font='bold 14px Fredoka';
+    catX.textAlign='left';
+    catX.fillText('⭐ '+catScore+'/67',10,20);
+    const hearts='❤️'.repeat(catLives)+'🖤'.repeat(Math.max(0,5-catLives));
+    catX.textAlign='right';
+    catX.fillText(hearts,catC.width-10,20);
+
+    // Level indicator
+    catX.textAlign='center';
+    catX.fillStyle='rgba(0,0,0,0.3)';
+    catX.font='bold 11px Fredoka';
+    catX.fillText(lv.name,catC.width/2,16);
+
+    // Progress bar (fancy)
+    const pct=Math.min(catScore/67,1);
+    const barY=24;
+    const barW=catC.width-20;
+    // Bar background
+    catX.fillStyle='rgba(0,0,0,0.1)';
+    catX.beginPath();
+    catX.roundRect(10,barY,barW,8,4);
+    catX.fill();
+    // Bar fill with gradient
+    if(pct>0){
+        const grd=catX.createLinearGradient(10,0,10+barW*pct,0);
+        grd.addColorStop(0,'#2ecc40');
+        grd.addColorStop(0.5,'#ffd54f');
+        grd.addColorStop(1,'#ff9800');
+        catX.fillStyle=grd;
+        catX.beginPath();
+        catX.roundRect(10,barY,barW*pct,8,4);
+        catX.fill();
+        // Shiny effect on bar
+        catX.save();
+        catX.globalAlpha=0.3;
+        catX.fillStyle='#fff';
+        catX.beginPath();
+        catX.roundRect(10,barY,barW*pct,3,2);
+        catX.fill();
+        catX.restore();
+    }
+
+    // Level markers on bar
+    catLevels.forEach(l=>{
+        if(l.stars>0 && l.stars<67){
+            const mx=10+barW*(l.stars/67);
+            catX.fillStyle=catScore>=l.stars?'rgba(46,204,64,0.8)':'rgba(0,0,0,0.15)';
+            catX.beginPath();catX.arc(mx,barY+4,3,0,Math.PI*2);catX.fill();
+        }
+    });
+
+    // Combo display on canvas
+    if(catCombo>=3){
+        catX.save();
+        catX.textAlign='right';
+        catX.font='bold 13px Bangers';
+        catX.fillStyle='#ff9800';
+        catX.fillText('🔥 COMBO x'+catCombo,catC.width-10,barY+22);
+        catX.restore();
+    }
+
+    // Power-up timers on canvas
+    let powerY=50;
+    if(catPowers.shield>0){
+        const pct2=catPowers.shield/300;
+        catX.fillStyle='rgba(66,165,245,0.2)';
+        catX.fillRect(catC.width-80,powerY,70,6);
+        catX.fillStyle='#42a5f5';
+        catX.fillRect(catC.width-80,powerY,70*pct2,6);
+        catX.font='10px Fredoka';catX.textAlign='right';catX.fillStyle='#42a5f5';
+        catX.fillText('🛡️ Escudo',catC.width-10,powerY-2);
+        powerY+=18;
+    }
+    if(catPowers.magnet>0){
+        const pct2=catPowers.magnet/360;
+        catX.fillStyle='rgba(171,71,188,0.2)';
+        catX.fillRect(catC.width-80,powerY,70,6);
+        catX.fillStyle='#ab47bc';
+        catX.fillRect(catC.width-80,powerY,70*pct2,6);
+        catX.font='10px Fredoka';catX.textAlign='right';catX.fillStyle='#ab47bc';
+        catX.fillText('⚡ Imán',catC.width-10,powerY-2);
+        powerY+=18;
+    }
+    if(catPowers.double>0){
+        const pct2=catPowers.double/300;
+        catX.fillStyle='rgba(255,152,0,0.2)';
+        catX.fillRect(catC.width-80,powerY,70,6);
+        catX.fillStyle='#ff9800';
+        catX.fillRect(catC.width-80,powerY,70*pct2,6);
+        catX.font='10px Fredoka';catX.textAlign='right';catX.fillStyle='#ff9800';
+        catX.fillText('✨ x2',catC.width-10,powerY-2);
+    }
+
+    catX.restore(); // restore from shake
+
+    catAnim=requestAnimationFrame(catLoop);
+}
+
+catC.addEventListener('mousemove',e=>{
+    const r=catC.getBoundingClientRect();
+    catPlayer.targetX=((e.clientX-r.left)/r.width)*catC.width-catPlayer.w/2;
+});
+catC.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    const r=catC.getBoundingClientRect();
+    catPlayer.targetX=((e.touches[0].clientX-r.left)/r.width)*catC.width-catPlayer.w/2;
+},{passive:false});
+
+// ============================================================
+// GAME 2: SMASH 67
+// ============================================================
+let smScore=0,smTime=30,smCombo=0,smRunning=false,smInterval,smTimerIv;
+const smEmojis=[{e:'6️⃣',type:'six',pts:6},{e:'7️⃣',type:'seven',pts:7},{e:'🐤',type:'popoi',pts:-10},{e:'💣',type:'bomb',pts:-5}];
+
+function smBuildGrid(){
+    const g=document.getElementById('sm-grid');g.innerHTML='';
+    for(let i=0;i<12;i++){const h=document.createElement('div');h.className='hole';h.dataset.i=i;h.addEventListener('click',()=>smHit(h));g.appendChild(h);}
+}
+smBuildGrid();
+
+function smashStart(){
+    smashReset();smRunning=true;
+    smInterval=setInterval(smSpawn,700);
+    smTimerIv=setInterval(()=>{
+        smTime--;document.getElementById('sm-time').textContent=smTime;
+        document.getElementById('sm-bar').style.width=(smTime/30*100)+'%';
+        if(smTime<=0)smEnd();
+    },1000);
+}
+
+function smSpawn(){
+    if(!smRunning)return;
+    const holes=document.querySelectorAll('#sm-grid .hole');
+    holes.forEach(h=>{h.textContent='';h.className='hole';h.dataset.type='';h.dataset.pts='';});
+    const count=1+Math.floor(smScore/15);
+    const used=new Set();
+    for(let c=0;c<Math.min(count,4);c++){
+        let idx;do{idx=Math.floor(Math.random()*12);}while(used.has(idx));
+        used.add(idx);
+        // Weight: 6 and 7 more common
+        const roll=Math.random();
+        let item;
+        if(roll<0.35) item=smEmojis[0]; // 6
+        else if(roll<0.7) item=smEmojis[1]; // 7
+        else if(roll<0.85) item=smEmojis[2]; // popoi
+        else item=smEmojis[3]; // bomb
+        const h=holes[idx];
+        h.textContent=item.e;
+        h.classList.add(item.type==='six'?'pop-six':item.type==='seven'?'pop-seven':item.type==='popoi'?'pop-popoi':'pop-bomb');
+        h.dataset.type=item.type;
+        h.dataset.pts=item.pts;
+    }
+}
+
+function smHit(hole){
+    if(!smRunning||!hole.dataset.type)return;
+    const pts=parseInt(hole.dataset.pts);
+    const type=hole.dataset.type;
+    if(type==='six'||type==='seven'){
+        smCombo++;
+        smScore+=pts+Math.floor(smCombo/3);
+        hole.classList.add('hit-good');
+        sfxHit();
+    } else {
+        smCombo=0;
+        smScore=Math.max(0,smScore+pts);
+        hole.classList.add('hit-bad');
+        sfxBad();
+    }
+    hole.textContent='💥';hole.dataset.type='';
+    document.getElementById('sm-score').textContent=smScore;
+    document.getElementById('sm-combo').textContent=smCombo;
+    if(smScore>=67){smScore=67;smEnd(true);}
+}
+
+function smEnd(won=false){
+    smRunning=false;clearInterval(smInterval);clearInterval(smTimerIv);
+    document.querySelectorAll('#sm-grid .hole').forEach(h=>{h.textContent='';h.className='hole';});
+    if(won)showModal('👊','¡67 PUNTOS!','¡Smash completado! Six y Seven están orgullosos.');
+    else showModal('⏰','¡Tiempo!',`Conseguiste ${smScore}/67. ¡Golpea al 6 y al 7 pero cuida a Popoi!`);
+}
+
+function smashReset(){
+    smRunning=false;clearInterval(smInterval);clearInterval(smTimerIv);
+    smScore=0;smTime=30;smCombo=0;
+    document.getElementById('sm-score').textContent=0;
+    document.getElementById('sm-time').textContent=30;
+    document.getElementById('sm-combo').textContent=0;
+    document.getElementById('sm-bar').style.width='100%';
+    document.querySelectorAll('#sm-grid .hole').forEach(h=>{h.textContent='';h.className='hole';});
+}
+
+// ============================================================
+// GAME 3: MEMORY
+// ============================================================
+let memCards=[],memFlipped=[],memMatched=0,memMoves=0,memLocked=false;
+const memEmojis=['🐤','6️⃣','7️⃣','⭐','🎮','🟢','🔴','💛'];
+
+function memInit(){
+    memFlipped=[];memMatched=0;memMoves=0;memLocked=false;
+    document.getElementById('mem-moves').textContent=0;
+    document.getElementById('mem-pairs').textContent='0/8';
+    const pairs=[];const used=new Set();
+    for(let i=0;i<8;i++){
+        let a;do{a=Math.floor(Math.random()*55)+5;}while(used.has(a)||used.has(67-a));
+        used.add(a);used.add(67-a);
+        pairs.push({val:a,pid:i,emoji:memEmojis[i]});
+        pairs.push({val:67-a,pid:i,emoji:memEmojis[i]});
+    }
+    for(let i=pairs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pairs[i],pairs[j]]=[pairs[j],pairs[i]];}
+    memCards=pairs;
+    renderMem();
+}
+
+function renderMem(){
+    const g=document.getElementById('mem-grid');g.innerHTML='';
+    memCards.forEach((c,i)=>{
+        const d=document.createElement('div');
+        d.className='mem-card'+(c.matched?' matched':'');
+        d.innerHTML=`<div class="mem-inner"><div class="mem-front">67</div><div class="mem-back"><span>${c.emoji}</span><span class="mem-val">${c.val}</span></div></div>`;
+        d.onclick=()=>memFlip(i);
+        g.appendChild(d);
+    });
+}
+
+function memFlip(i){
+    if(memLocked)return;
+    const c=memCards[i];
+    if(c.matched||memFlipped.includes(i))return;
+    memFlipped.push(i);
+    document.querySelectorAll('.mem-card')[i].classList.add('flipped');
+    sfxHit();
+    if(memFlipped.length===2){
+        memMoves++;document.getElementById('mem-moves').textContent=memMoves;
+        memLocked=true;
+        const[a,b]=memFlipped;
+        if(memCards[a].pid===memCards[b].pid){
+            memCards[a].matched=memCards[b].matched=true;
+            memMatched++;document.getElementById('mem-pairs').textContent=memMatched+'/8';
+            sfxGood();
+            setTimeout(()=>{
+                document.querySelectorAll('.mem-card')[a].classList.add('matched');
+                document.querySelectorAll('.mem-card')[b].classList.add('matched');
+                memFlipped=[];memLocked=false;
+                if(memMatched===8) showModal('🧠','¡MEMORAMA COMPLETO!',`Todos los pares suman 67. ${memMoves} movimientos.`);
+            },400);
+        } else {
+            setTimeout(()=>{
+                document.querySelectorAll('.mem-card')[a].classList.remove('flipped');
+                document.querySelectorAll('.mem-card')[b].classList.remove('flipped');
+                memFlipped=[];memLocked=false;
+            },700);
+        }
+    }
+}
+
+// ============================================================
+// GAME 4: QUIZ
+// ============================================================
+const quizData=[
+    {q:'¿67 es un número primo?',o:['Sí','No','Solo los martes','A veces'],c:0,ex:'67 es el 19° número primo'},
+    {q:'¿Qué elemento tiene número atómico 67?',o:['Holmio','Erbio','Tulio','Gadolinio'],c:0,ex:'El Holmio (Ho) tiene número atómico 67'},
+    {q:'¿Cuánto es 6 + 7?',o:['12','13','14','67'],c:1,ex:'6 + 7 = 13, los dígitos de 67'},
+    {q:'¿67 en números romanos?',o:['LXVII','XLVII','LXVI','LVII'],c:0,ex:'L(50)+X(10)+V(5)+II(2) = LXVII'},
+    {q:'¿Cuánto es 67 en binario?',o:['1000011','1000111','1100011','1010011'],c:0,ex:'67 = 64+2+1 = 1000011'},
+    {q:'¿En qué año se fundó Canadá?',o:['1860','1867','1870','1865'],c:1,ex:'Canadá se fundó en 1867'},
+    {q:'¿Cuánto es 67²?',o:['4389','4489','4589','4289'],c:1,ex:'67 × 67 = 4,489'},
+    {q:'¿Cuánto es 100 - 33?',o:['66','67','68','77'],c:1,ex:'100 - 33 = 67 ¡siempre!'},
+    {q:'¿Cómo se llama el pollito con bufanda?',o:['Popoi','Pollito Pin','Chicky','Tweety'],c:0,ex:'¡Es Popoi! 🐤'},
+    {q:'¿De qué color son los Crocs de Six?',o:['Verdes','Rojos','Azules','Amarillos'],c:0,ex:'Six usa Crocs verdes 🟢'},
+    {q:'¿Qué color es el número 7?',o:['Verde','Azul','Rojo','Amarillo'],c:2,ex:'Seven es rojo 🔴'},
+    {q:'¿Cuántas patas tiene Popoi?',o:['2','4','6','67'],c:0,ex:'Popoi tiene 2 patas de pollito 🐤'},
+];
+let qzIdx=0,qzScore=0,qzOrder=[],qzAnswered=false;
+
+function qzInit(){
+    qzIdx=0;qzScore=0;qzAnswered=false;
+    document.getElementById('qz-score').textContent=0;
+    document.getElementById('qz-total').textContent='0/10';
+    document.getElementById('qz-fb').textContent='';
+    document.getElementById('qz-next').style.display='none';
+    document.getElementById('qz-restart').style.display='none';
+    qzOrder=[...quizData];
+    for(let i=qzOrder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[qzOrder[i],qzOrder[j]]=[qzOrder[j],qzOrder[i]];}
+    qzOrder=qzOrder.slice(0,10);
+    renderQzDots();renderQz();
+}
+
+function renderQzDots(){
+    const d=document.getElementById('qz-dots');d.innerHTML='';
+    for(let i=0;i<10;i++){const dot=document.createElement('div');dot.className='qdot'+(i===qzIdx?' curr':'');
+    if(i<qzIdx)dot.classList.add(qzOrder[i].ok?'ok':'fail');d.appendChild(dot);}
+}
+
+function renderQz(){
+    if(qzIdx>=10){qzEnd();return;}
+    qzAnswered=false;
+    const q=qzOrder[qzIdx];
+    document.getElementById('qz-q').textContent=q.q;
+    document.getElementById('qz-fb').textContent='';
+    document.getElementById('qz-next').style.display='none';
+    const opts=document.getElementById('qz-opts');opts.innerHTML='';
+    q.o.forEach((o,i)=>{
+        const d=document.createElement('div');d.className='quiz-opt';d.textContent=o;
+        d.onclick=()=>qzAnswer(i);opts.appendChild(d);
+    });
+}
+
+function qzAnswer(i){
+    if(qzAnswered)return;qzAnswered=true;
+    const q=qzOrder[qzIdx];
+    const opts=document.querySelectorAll('.quiz-opt');
+    if(i===q.c){qzScore++;q.ok=true;opts[i].classList.add('correct');
+        document.getElementById('qz-fb').innerHTML='✅ ¡Correcto! '+q.ex;
+        document.getElementById('qz-fb').style.color='#2ecc40';sfxGood();
+    } else {
+        q.ok=false;opts[i].classList.add('wrong');opts[q.c].classList.add('correct');
+        document.getElementById('qz-fb').innerHTML='❌ '+q.ex;
+        document.getElementById('qz-fb').style.color='#e74c3c';sfxBad();
+    }
+    document.getElementById('qz-score').textContent=qzScore;
+    document.getElementById('qz-total').textContent=(qzIdx+1)+'/10';
+    renderQzDots();
+    document.getElementById('qz-next').style.display='inline-flex';
+}
+
+function qzNext(){qzIdx++;renderQzDots();renderQz();}
+
+function qzEnd(){
+    document.getElementById('qz-q').textContent='';
+    document.getElementById('qz-opts').innerHTML='';
+    document.getElementById('qz-next').style.display='none';
+    document.getElementById('qz-restart').style.display='inline-flex';
+    const pct=Math.round(qzScore/10*100);
+    showModal(pct>=80?'🏆':pct>=50?'🐤':'📚',
+        pct>=80?'¡EXPERTO POPOI!':pct>=50?'¡Nada mal!':'¡A estudiar con Popoi!',
+        `Acertaste ${qzScore}/10 (${pct}%)`);
+}
+
+// ============================================================
+// GAME 5: SUMA 67
+// ============================================================
+let s67Nums=[],s67Sel=new Set(),s67Wins=0,s67Streak=0;
+
+function s67Init(){
+    s67Nums=[];s67Sel=new Set();
+    const a=Math.floor(Math.random()*55)+5;
+    s67Nums.push(a,67-a);
+    for(let i=2;i<20;i++)s67Nums.push(Math.floor(Math.random()*40)+1);
+    for(let i=s67Nums.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[s67Nums[i],s67Nums[j]]=[s67Nums[j],s67Nums[i]];}
+    renderS67();updateS67();
+}
+
+function renderS67(){
+    const g=document.getElementById('s67-grid');g.innerHTML='';
+    s67Nums.forEach((n,i)=>{
+        const c=document.createElement('div');
+        c.className='sum-cell'+(s67Sel.has(i)?' picked':'');
+        c.textContent=n;
+        c.onclick=()=>{if(s67Sel.has(i))s67Sel.delete(i);else s67Sel.add(i);renderS67();updateS67();sfxHit();};
+        g.appendChild(c);
+    });
+}
+
+function updateS67(){
+    let t=0;s67Sel.forEach(i=>t+=s67Nums[i]);
+    const el=document.getElementById('s67-total');
+    el.textContent=`${t} / 67`;
+    el.className='sum-display'+(t>67?' over':t===67?' exact':'');
+}
+
+function s67Check(){
+    let t=0;s67Sel.forEach(i=>t+=s67Nums[i]);
+    if(t===67&&s67Sel.size>0){
+        s67Wins++;s67Streak++;
+        document.getElementById('s67-wins').textContent=s67Wins;
+        document.getElementById('s67-streak').textContent=s67Streak;
+        const cells=document.querySelectorAll('.sum-cell');
+        s67Sel.forEach(i=>cells[i].classList.add('win'));
+        sfxGood();
+        setTimeout(()=>{showModal('🎉','¡SUMA 67!',`¡Perfecto! Racha: ${s67Streak} 🔥`);s67Init();},500);
+    } else {
+        s67Streak=0;document.getElementById('s67-streak').textContent=0;
+        const cells=document.querySelectorAll('.sum-cell');
+        s67Sel.forEach(i=>cells[i].classList.add('lose'));
+        sfxBad();
+        setTimeout(()=>renderS67(),500);
+    }
+}
+
+// ============================================================
+// GAME 6: POPOI RUNNER
+// ============================================================
+const rnC=document.getElementById('runnerCanvas'),rnX=rnC.getContext('2d');
+let rn={},rnObs=[],rnStars=[],rnRun=false,rnAnim2,rnBest=0;
+
+function rnInit(){
+    rn={x:50,y:180,vy:0,w:32,h:32,grounded:true,stars:0,dist:0};
+    rnObs=[];rnStars=[];rnRun=false;
+    document.getElementById('rn-stars').textContent=0;
+    document.getElementById('rn-dist').textContent=0;
+}
+rnInit();
+
+function rnStart(){rnInit();rnRun=true;rnLoop();}
+
+function rnJump(){if(!rnRun||!rn.grounded)return;rn.vy=-8.5;rn.grounded=false;beep(500,0.05,0.08);}
+
+rnC.addEventListener('click',rnJump);
+document.addEventListener('keydown',e=>{
+    if((e.code==='Space'||e.code==='ArrowUp')&&document.getElementById('p-runner').classList.contains('active')){e.preventDefault();rnJump();}
+});
+
+function rnLoop(){
+    if(!rnRun)return;
+    rnX.clearRect(0,0,rnC.width,rnC.height);
+
+    // BG
+    rnX.fillStyle='#e8f5e9';rnX.fillRect(0,0,rnC.width,rnC.height);
+    // Sky gradient
+    const sky=rnX.createLinearGradient(0,0,0,180);
+    sky.addColorStop(0,'#bbdefb');sky.addColorStop(1,'#e8f5e9');
+    rnX.fillStyle=sky;rnX.fillRect(0,0,rnC.width,180);
+    // Clouds
+    rnX.fillStyle='rgba(255,255,255,0.6)';
+    const cx1=((rn.dist*15)%700)-50;
+    rnX.beginPath();rnX.arc(cx1,40,20,0,Math.PI*2);rnX.arc(cx1+15,30,15,0,Math.PI*2);rnX.arc(cx1+30,40,18,0,Math.PI*2);rnX.fill();
+    const cx2=((rn.dist*10+300)%700)-50;
+    rnX.beginPath();rnX.arc(cx2,60,15,0,Math.PI*2);rnX.arc(cx2+12,52,12,0,Math.PI*2);rnX.arc(cx2+24,60,14,0,Math.PI*2);rnX.fill();
+
+    // Ground
+    rnX.fillStyle='#a5d6a7';rnX.fillRect(0,210,rnC.width,30);
+    rnX.fillStyle='#81c784';
+    for(let gx=((rn.dist*30)%30)-30;gx<rnC.width;gx+=30){
+        rnX.beginPath();rnX.moveTo(gx,210);rnX.lineTo(gx+8,204);rnX.lineTo(gx+16,210);rnX.fill();
+    }
+
+    // Physics
+    rn.vy+=0.45;rn.y+=rn.vy;
+    if(rn.y>=180){rn.y=180;rn.vy=0;rn.grounded=true;}
+    rn.dist+=0.08;
+    document.getElementById('rn-dist').textContent=Math.floor(rn.dist*10);
+
+    // Draw Popoi
+    drawPopoiSmall(rnX,rn.x,rn.y,rn.w);
+
+    // Obstacles
+    const spd=2.5+rn.dist*0.1;
+    if(Math.random()<0.013+rn.dist*0.0003){
+        const h=18+Math.random()*18;
+        rnObs.push({x:rnC.width+20,w:16+Math.random()*8,h,y:210-h,color:Math.random()>0.5?'#e74c3c':'#c0392b'});
+    }
+    rnObs.forEach(o=>{
+        o.x-=spd;
+        rnX.fillStyle=o.color;
+        rnX.fillRect(o.x,o.y,o.w,o.h);
+        rnX.fillStyle='#fff';
+        rnX.font='10px serif';
+        rnX.textAlign='center';
+        rnX.fillText('☠️',o.x+o.w/2,o.y+o.h/2+4);
+    });
+    rnObs=rnObs.filter(o=>o.x>-30);
+
+    // Stars
+    if(Math.random()<0.02){
+        rnStars.push({x:rnC.width+20,y:130+Math.random()*50,got:false});
+    }
+    rnStars.forEach(s=>{
+        s.x-=spd;
+        if(!s.got){
+            rnX.font='16px serif';rnX.textAlign='center';
+            rnX.fillText('⭐',s.x,s.y+Math.sin(Date.now()*0.003+s.x)*3);
+        }
+    });
+
+    // Collisions
+    const pr={x:rn.x+2,y:rn.y+2,w:28,h:28};
+    for(const o of rnObs){
+        if(pr.x<o.x+o.w&&pr.x+pr.w>o.x&&pr.y+pr.h>o.y){
+            rnRun=false;sfxBad();
+            if(rn.stars>rnBest){rnBest=rn.stars;document.getElementById('rn-best').textContent=rnBest;}
+            showModal('💥','¡Popoi chocó!',`⭐ ${rn.stars}/67 — Distancia: ${Math.floor(rn.dist*10)}m`);
+            return;
+        }
+    }
+    rnStars.forEach(s=>{
+        if(!s.got&&Math.abs(s.x-rn.x-16)<18&&Math.abs(s.y-rn.y-16)<18){
+            s.got=true;rn.stars++;
+            document.getElementById('rn-stars').textContent=rn.stars;
+            sfxHit();
+            if(rn.stars>=67){
+                rnRun=false;rnBest=67;document.getElementById('rn-best').textContent=67;
+                showModal('⭐','¡67 ESTRELLAS!','¡Popoi es el corredor más rápido del universo 67!');
+                return;
+            }
+        }
+    });
+    rnStars=rnStars.filter(s=>s.x>-20);
+
+    rnAnim2=requestAnimationFrame(rnLoop);
+}
+
+// ============ INIT ============
+// roundRect polyfill for older browsers
+if(!CanvasRenderingContext2D.prototype.roundRect){
+    CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+        if(typeof r==='number')r=[r,r,r,r];
+        this.moveTo(x+r[0],y);
+        this.lineTo(x+w-r[1],y);this.quadraticCurveTo(x+w,y,x+w,y+r[1]);
+        this.lineTo(x+w,y+h-r[2]);this.quadraticCurveTo(x+w,y+h,x+w-r[2],y+h);
+        this.lineTo(x+r[3],y+h);this.quadraticCurveTo(x,y+h,x,y+h-r[3]);
+        this.lineTo(x,y+r[0]);this.quadraticCurveTo(x,y,x+r[0],y);
+        this.closePath();
+    };
+}
+
+// Draw initial canvas state for Catcher
+(function(){
+    const ctx=catX;
+    ctx.fillStyle='#e8f5e9';ctx.fillRect(0,0,catC.width,catC.height);
+    ctx.fillStyle='#a5d6a7';ctx.fillRect(0,catC.height-30,catC.width,30);
+    drawPopoiSmall(ctx, catC.width/2-25, catC.height-80, 50);
+    ctx.fillStyle='rgba(0,0,0,0.15)';
+    ctx.font='bold 20px Fredoka';ctx.textAlign='center';
+    ctx.fillText('🐤 ¡Presiona Jugar!',catC.width/2,catC.height/2-10);
+    ctx.font='13px Fredoka';
+    ctx.fillText('Atrapa ⭐ y evita 💣 — Recoge power-ups 🛡️⚡✨❤️',catC.width/2,catC.height/2+15);
+})();
+
+memInit();
+qzInit();
+s67Init();
+
+</script>
+</body>
+</html>
